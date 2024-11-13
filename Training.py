@@ -30,7 +30,8 @@ def train_one_epoch_extra_losses(model, optimizer, loss_function, dataloader, de
             else:
                 running_extra_losses[key] = val
 
-        loss.backward()
+        total_loss = loss + sum(extra_loss for extra_loss in extra_losses.values())
+        total_loss.backward()
         optimizer.step()
         optimizer.zero_grad()
 
